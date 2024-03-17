@@ -139,19 +139,64 @@ public class LinkedList{
 
     public void middleOfList(){
         if(head != null){
-            if(head.next == null){
-                System.out.println("Middle of list is "+head.value);
+            Node slow = head;
+            Node fast = head;
+            while (fast != null && fast.next != null) {
+                slow = slow.next;
+                fast = fast.next.next;
+            }
+            System.out.println("Middle of list is "+slow.value);
+            
+        }
+    }
+
+    public Node getCycleHead(){
+        if(head != null){
+            Node slow = head;
+            Node fast = head;
+            while (fast != null && fast.next != null) {
+                slow = slow.next;
+                fast = fast.next.next;
+
+                if(slow == fast){
+                    break;
+                }
+            }
+            if(slow == fast){
+                slow = head;
+                while(slow != fast){
+                    slow = slow.next;
+                    fast = fast.next;
+                }
+                return slow;
             }
             else{
-                Node slow = head;
-                Node fast = head;
-                while (fast.next != null) {
-                    slow = slow.next;
-                    fast = fast.next.next;
-                }
-                System.out.println("Middle of list is "+slow.value);
+                return null;
             }
         }
+        return null;
+    }
+
+    public boolean isCycleExist(){
+        if(head != null){
+            Node slow = head;
+            Node fast = head;
+            while(fast != null && fast.next != null){
+                slow = slow.next;
+                fast = fast.next.next;
+
+                if(slow == fast){
+                    break;
+                }
+            }
+            if(slow == fast){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        return false;
     }
     public static void main(String[] args) {
         LinkedList linkedList = new LinkedList();
@@ -169,9 +214,9 @@ public class LinkedList{
         // linkedList.print();
         linkedList.insertAtTail(10);
         linkedList.insertAtTail(20);
-        linkedList.insertAtTail(30);
-        linkedList.insertAtTail(40);
-        linkedList.insertAtTail(50);
+        // linkedList.insertAtTail(30);
+        // linkedList.insertAtTail(40);
+        // linkedList.insertAtTail(50);
         // linkedList.print();
         // linkedList.removeDuplicates();
         linkedList.middleOfList();
